@@ -1,0 +1,14 @@
+language: java
+sudo: false
+jdk:
+   - oraclejdk8
+script:
+  - ./gradlew clean build
+branches:
+  only:
+    - master
+    - develop
+    - /^feature.*$/
+    - /^hotfix.*$/
+notifications:
+  email: false

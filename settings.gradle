@@ -1,3 +1,4 @@
 include ":strucdocs-edge",
-	":strucdocs-eureka"
+	":strucdocs-eureka",
+	":strucdocs-transpose-service"
 rootProject.name = 'strucdocs'

@@ -1,4 +1,3 @@
-include 
-	":strucdocs-edge",
+include ":strucdocs-edge",
 	":strucdocs-eureka"
 rootProject.name = 'strucdocs'

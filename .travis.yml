@@ -1,11 +1,11 @@
 language: java
 sudo: false
 jdk:
-    - oraclejdk8
-beforeinstall:
-    - chmod +x gradlew   
+  - oraclejdk8
+before_install:
+  - chmod +x gradlew
 script:
-    - ./gradlew clean build
+  - ./gradlew clean build
 branches:
   only:
     - master

@@ -5,11 +5,12 @@ jdk:
 services:
   - docker
 before_install:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - chmod +x gradlew
 script:
   - ./gradlew clean build
 branches:
-  only:
+  only:ó
     - master
     - develop
     - /^feature.*$/

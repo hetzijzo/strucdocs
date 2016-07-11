@@ -1,5 +1,5 @@
 box: java
-dev:
+build:
   steps:
     - script:
       name: gradle clean build

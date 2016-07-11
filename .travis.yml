@@ -8,11 +8,12 @@ language: java
 jdk:
   - oraclejdk8
 services:
+  - rabbitmq
   - docker
 before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - chmod +x gradlew
-script:
+install:
   - ./gradlew clean build
 branches:
   only:

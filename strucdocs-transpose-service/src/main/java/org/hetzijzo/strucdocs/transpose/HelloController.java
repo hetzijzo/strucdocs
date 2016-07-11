@@ -8,7 +8,7 @@
  * of ROYAL PHILIPS N.V.
  */
 
-package org.hetzijzo.strucdocs.eureka;
+package org.hetzijzo.strucdocs.transpose;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

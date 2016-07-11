@@ -10,7 +10,7 @@ before_install:
 script:
   - ./gradlew clean build
 branches:
-  only:ó
+  only:
     - master
     - develop
     - /^feature.*$/

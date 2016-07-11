@@ -1,0 +1,7 @@
+box: java
+dev:
+  steps:
+    - script:
+      name: gradle clean build
+      code: |
+        ./gradlew clean build

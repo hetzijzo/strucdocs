@@ -23,3 +23,6 @@ branches:
     - /^hotfix.*$/
 notifications:
   email: false
+env:
+  global:
+    - GH_REF: github.com/hetzijzo/strucdocs.git

@@ -1,7 +1,0 @@
-box: java
-build:
-  steps:
-    - script:
-      name: gradle clean build
-      code: |
-        ./gradlew clean build

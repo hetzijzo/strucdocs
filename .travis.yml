@@ -1,9 +1,9 @@
 sudo: required
-cache:
-  directories:
-    - $HOME/.m2
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+#cache:
+#  directories:
+#    - $HOME/.m2
+#    - $HOME/.gradle/caches/
+#    - $HOME/.gradle/wrapper/
 language: java
 jdk:
   - oraclejdk8
@@ -13,7 +13,7 @@ services:
 before_install:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - chmod +x gradlew
-install:
+script:
   - ./gradlew clean build
 branches:
   only:

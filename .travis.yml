@@ -1,9 +1,9 @@
 sudo: required
-#cache:
-#  directories:
-#    - $HOME/.m2
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle/wrapper/
 #    - $HOME/.gradle/caches/
-#    - $HOME/.gradle/wrapper/
 language: java
 jdk:
   - oraclejdk8

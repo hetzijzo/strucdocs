@@ -50,33 +50,32 @@ public class Chord {
         ChordBuilder chordBuilder = Chord.builder()
             .note(note)
             .groundNote(groundNote);
+        addAdditionsFromString(chordBuilder, StringUtils.substringAfter(chordString, note.notation));
+        return chordBuilder.build();
+    }
 
-        String chordAdditionalString = StringUtils.substringAfter(chordString, note.notation);
-        while (!chordAdditionalString.isEmpty()) {
+    private static ChordBuilder addAdditionsFromString(ChordBuilder chordBuilder, String chordAdditionalString) {
+        while (StringUtils.isNotEmpty(chordAdditionalString)) {
             Interval addition = getHighestMatching(Interval.class, chordAdditionalString);
             if (addition != null) {
                 chordBuilder.addition(addition);
                 chordAdditionalString = StringUtils.substringAfter(chordAdditionalString, addition.notation);
             }
         }
-
-        return chordBuilder.build();
+        return chordBuilder;
     }
 
     private static <T extends Enum> T getHighestMatching(Class<T> itemsClass, final String stringValue) {
-        Optional<Map.Entry<T, Double>> max =
-            getMatchingScores(itemsClass, stringValue).entrySet().stream()
-                .filter(e -> stringValue.indexOf(e.getKey().toString()) == 0)
-                .max((e1, e2) -> e1.getValue().compareTo(e2.getValue()));
-        if (max.isPresent()) {
-            return max.get().getKey();
-        }
-        return null;
+        Optional<T> max = getMatchingScores(itemsClass, stringValue)
+            .entrySet().stream()
+            .filter(e -> stringValue.indexOf(e.getKey().toString()) == 0)
+            .max((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+            .map(Map.Entry::getKey);
+        return max.orElse(null);
     }
 
     private static <T extends Enum> Map<T, Double> getMatchingScores(Class<T> itemsClass, final String stringValue) {
-        return Arrays.asList(itemsClass.getEnumConstants())
-            .stream()
+        return Arrays.stream(itemsClass.getEnumConstants())
             .filter(item -> stringValue.contains(item.toString()))
             .collect(Collectors.toMap(
                 item -> item,

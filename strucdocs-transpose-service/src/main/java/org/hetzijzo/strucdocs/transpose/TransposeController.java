@@ -1,5 +1,6 @@
 package org.hetzijzo.strucdocs.transpose;
 
+import org.hetzijzo.strucdocs.transpose.domain.Chord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;

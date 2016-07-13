@@ -1,4 +1,4 @@
-package org.hetzijzo.strucdocs.transpose;
+package org.hetzijzo.strucdocs.transpose.domain;
 
 import java.util.Arrays;
 import java.util.LinkedList;

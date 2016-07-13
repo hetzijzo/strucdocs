@@ -1,4 +1,4 @@
-package org.hetzijzo.strucdocs.transpose;
+package org.hetzijzo.strucdocs.transpose.domain;
 
 public enum Note {
 
@@ -24,6 +24,15 @@ public enum Note {
 
     Note(String notation) {
         this.notation = notation;
+    }
+
+    /**
+     * Gets the String notation of this Note.
+     *
+     * @return String notation
+     */
+    public String getNotation() {
+        return notation;
     }
 
     /**

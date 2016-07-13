@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.hetzijzo.strucdocs.transpose.domain.Chord;
+
 @Data
 @Builder
 @NoArgsConstructor

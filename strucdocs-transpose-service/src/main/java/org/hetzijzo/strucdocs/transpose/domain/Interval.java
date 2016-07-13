@@ -1,4 +1,4 @@
-package org.hetzijzo.strucdocs.transpose;
+package org.hetzijzo.strucdocs.transpose.domain;
 
 public enum Interval {
 
@@ -25,6 +25,15 @@ public enum Interval {
 
     Interval(String notation) {
         this.notation = notation;
+    }
+
+    /**
+     * Gets the String notation of this Interval.
+     *
+     * @return String notation
+     */
+    public String getNotation() {
+        return notation;
     }
 
     @Override

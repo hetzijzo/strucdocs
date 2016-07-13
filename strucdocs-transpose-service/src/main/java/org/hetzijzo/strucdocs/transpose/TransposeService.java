@@ -1,5 +1,7 @@
 package org.hetzijzo.strucdocs.transpose;
 
+import org.hetzijzo.strucdocs.transpose.domain.Chord;
+import org.hetzijzo.strucdocs.transpose.domain.Scale;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Singular;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hetzijzo.strucdocs.transpose.converter.ChordJsonDeserializer;
 import org.hetzijzo.strucdocs.transpose.converter.ChordJsonSerializer;
@@ -44,7 +45,7 @@ public class Chord {
 
         Note note = getHighestMatching(Note.class, chordString);
         if (note == null) {
-            return null;
+            throw new InvalidChordException(chordStringInput);
         }
 
         ChordBuilder chordBuilder = Chord.builder()
@@ -54,7 +55,9 @@ public class Chord {
         return chordBuilder.build();
     }
 
-    private static ChordBuilder addAdditionsFromString(ChordBuilder chordBuilder, String chordAdditionalString) {
+    private static ChordBuilder addAdditionsFromString(final ChordBuilder chordBuilder,
+                                                       final String chordAdditionalStringInput) {
+        String chordAdditionalString = chordAdditionalStringInput;
         while (StringUtils.isNotEmpty(chordAdditionalString)) {
             Interval addition = getHighestMatching(Interval.class, chordAdditionalString);
             if (addition != null) {
@@ -65,18 +68,20 @@ public class Chord {
         return chordBuilder;
     }
 
-    private static <T extends Enum> T getHighestMatching(Class<T> itemsClass, final String stringValue) {
+    private static <T extends Enum> T getHighestMatching(final Class<T> itemsClass,
+                                                         final String stringValue) {
         Optional<T> max = getMatchingScores(itemsClass, stringValue)
             .entrySet().stream()
-            .filter(e -> stringValue.indexOf(e.getKey().toString()) == 0)
-            .max((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+            .filter(e -> StringUtils.indexOf(stringValue, e.getKey().toString()) == 0)
+            .max((e1, e2) -> ObjectUtils.compare(e1.getValue(), e2.getValue()))
             .map(Map.Entry::getKey);
         return max.orElse(null);
     }
 
-    private static <T extends Enum> Map<T, Double> getMatchingScores(Class<T> itemsClass, final String stringValue) {
+    private static <T extends Enum> Map<T, Double> getMatchingScores(final Class<T> itemsClass,
+                                                                     final String stringValue) {
         return Arrays.stream(itemsClass.getEnumConstants())
-            .filter(item -> stringValue.contains(item.toString()))
+            .filter(item -> StringUtils.contains(stringValue, item.toString()))
             .collect(Collectors.toMap(
                 item -> item,
                 item -> StringUtils.getJaroWinklerDistance(item.toString(), stringValue)

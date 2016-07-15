@@ -26,17 +26,21 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class DocumentController {
 
+    private final StrucdocsDocumentRepository repository;
     private final SearchService searchService;
     private final BinaryStoreService binaryStoreService;
 
     @Autowired
-    public DocumentController(SearchService searchService, BinaryStoreService binaryStoreService) {
+    public DocumentController(StrucdocsDocumentRepository repository,
+                              SearchService searchService, BinaryStoreService binaryStoreService) {
+        this.repository = repository;
         this.searchService = searchService;
         this.binaryStoreService = binaryStoreService;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/files")
     public String provideUploadInfo(Model model) {
+        repository.findAll();
         List<Map<String, Object>> files = searchService.getFiles();
         model.addAttribute("files", files);
         return "uploadForm";

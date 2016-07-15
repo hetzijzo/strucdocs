@@ -1,0 +1,10 @@
+spring:
+  couchbase:
+    bootstrap-hosts: 192.168.99.100
+    bucket:
+      name: default
+    env:
+      timeouts:
+        connect: 10000
+
+binaryStore.root: C:/Data/test/binaryStore

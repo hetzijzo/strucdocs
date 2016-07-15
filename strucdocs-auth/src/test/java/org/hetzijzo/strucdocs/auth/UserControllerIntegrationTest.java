@@ -1,4 +1,4 @@
-package org.hetzijzo.strucdocs.edge;
+package org.hetzijzo.strucdocs.auth;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,10 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class StrucdocsAuthApplicationIntegrationTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class UserControllerIntegrationTest {
 
     @Test
-    public void contextLoads() {
+    public void test() {
+
     }
 }

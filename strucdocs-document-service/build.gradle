@@ -1,16 +1,17 @@
 jar {
-	baseName = 'strucdocs-transpose-service'
-	version = '0.0.1-SNAPSHOT'
+    baseName = 'strucdocs-document-service'
+    version = '0.0.1-SNAPSHOT'
 }
 
 dependencies {
-    compile('org.apache.commons:commons-lang3:3.4')
+    compile('org.codehaus.plexus:plexus-utils:3.0.21')
     compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-data-couchbase')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')
     compile('org.projectlombok:lombok')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc:1.1.0.RELEASE')
 }

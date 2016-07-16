@@ -2,7 +2,7 @@ buildscript {
     ext {
         javaVersion = 1.8
         springBootVersion = '1.4.0.RC1'
-        springCloudVersion = 'Brixton.SR2'
+        springCloudVersion = 'Brixton.SR3'
     }
     repositories {
         jcenter()
@@ -37,5 +37,5 @@ configure(subprojects) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '2.14'
 }

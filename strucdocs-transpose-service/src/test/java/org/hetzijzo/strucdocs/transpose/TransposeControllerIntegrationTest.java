@@ -3,6 +3,8 @@ package org.hetzijzo.strucdocs.transpose;
 import org.hetzijzo.strucdocs.transpose.domain.Chord;
 import org.hetzijzo.strucdocs.transpose.domain.Interval;
 import org.hetzijzo.strucdocs.transpose.domain.Note;
+import org.hetzijzo.strucdocs.transpose.rest.TransposeRequest;
+import org.hetzijzo.strucdocs.transpose.rest.TransposeResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

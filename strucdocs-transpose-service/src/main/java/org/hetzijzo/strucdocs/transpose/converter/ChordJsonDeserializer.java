@@ -6,10 +6,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hetzijzo.strucdocs.transpose.InvalidChordException;
 import org.hetzijzo.strucdocs.transpose.domain.Chord;
 import org.hetzijzo.strucdocs.transpose.domain.Interval;
 import org.hetzijzo.strucdocs.transpose.domain.Note;
+import org.hetzijzo.strucdocs.transpose.exception.InvalidChordException;
 
 import java.io.IOException;
 import java.util.Arrays;

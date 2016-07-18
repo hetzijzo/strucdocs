@@ -9,11 +9,11 @@ import java.io.InputStream;
 @Service
 public class SHA1Service {
 
-    public String getSha1Digest(InputStream is) {
+    String getSha1Digest(InputStream is) {
         try {
             return DigestUtils.sha1Hex(is);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
         }
     }
 }

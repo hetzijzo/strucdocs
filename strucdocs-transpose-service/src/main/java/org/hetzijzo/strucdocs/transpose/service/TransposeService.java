@@ -1,4 +1,4 @@
-package org.hetzijzo.strucdocs.transpose;
+package org.hetzijzo.strucdocs.transpose.service;
 
 import org.hetzijzo.strucdocs.transpose.domain.Chord;
 import org.hetzijzo.strucdocs.transpose.domain.Scale;

@@ -1,3 +1,10 @@
+spring.application.name: document-service
+info.id: ${spring.application.name}
+
+server:
+  port: ${PORT:8080}
+  context-path: /documents
+
 spring:
   couchbase:
     bootstrap-hosts: 192.168.99.100

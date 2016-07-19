@@ -13,6 +13,8 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')
     compile('org.projectlombok:lombok')
 
+    compile('org.springframework.boot:spring-boot-devtools')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     runtime('com.h2database:h2')

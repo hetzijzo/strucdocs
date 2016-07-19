@@ -1,7 +1,5 @@
 package org.hetzijzo.strucdocs.document.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.codehaus.jettison.json.JSONArray;
@@ -10,12 +8,14 @@ import org.codehaus.jettison.json.JSONObject;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
-import org.hetzijzo.strucdocs.document.domain.StrucdocsFile;
+import org.hetzijzo.strucdocs.document.domain.StrucdocsDocument;
 import org.hetzijzo.strucdocs.document.exception.DataExtractionException;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @Slf4j
@@ -24,13 +24,9 @@ public class DataExtractionService {
     private static final String EXIF_COMMAND = "C:\\Data\\Programs\\exiftool.exe";
     private static final String EXTRACT_TEXT_COMMAND = "C:\\Data\\Programs\\xpdfbin-win-3.04\\bin64\\pdftotext.exe";
 
-    private final ObjectMapper objectMapper;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ssz");
 
-    public DataExtractionService(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-    StrucdocsFile extractMetadata(File file) {
+    StrucdocsDocument extractMetadata(File file) {
         Commandline commandline = createCommandLine(EXIF_COMMAND, "-json", "-n", file.getAbsolutePath());
         CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
         CommandLineUtils.StringStreamConsumer out = new CommandLineUtils.StringStreamConsumer();
@@ -40,9 +36,22 @@ public class DataExtractionService {
         if (!output.isEmpty()) {
             try {
                 JSONObject jsonObject = new JSONArray(output).getJSONObject(0);
-                return objectMapper.readValue(jsonObject.toString(), StrucdocsFile.class);
-            } catch (JSONException | IOException ex) {
-                throw new IllegalStateException(ex);
+                return StrucdocsDocument.builder()
+                    .sourceFile(jsonObject.getString("SourceFile"))
+                    .filename(jsonObject.getString("FileName"))
+                    .directory(jsonObject.getString("Directory"))
+                    .size(jsonObject.getLong("FileSize"))
+                    .pages(jsonObject.getLong("PageCount"))
+                    .mimeType(jsonObject.getString("MIMEType"))
+                    .accessDate(LocalDateTime.parse(jsonObject.getString("FileAccessDate"), DATE_TIME_FORMATTER)
+                        .toInstant(ZoneOffset.UTC))
+                    .createDate(LocalDateTime.parse(jsonObject.getString("FileCreateDate"), DATE_TIME_FORMATTER)
+                        .toInstant(ZoneOffset.UTC))
+                    .modifyDate(LocalDateTime.parse(jsonObject.getString("FileModifyDate"), DATE_TIME_FORMATTER)
+                        .toInstant(ZoneOffset.UTC))
+                    .build();
+            } catch (JSONException ex) {
+                throw new DataExtractionException(ex);
             }
         }
 
@@ -52,24 +61,24 @@ public class DataExtractionService {
         }
         return null;
     }
-//
-//    public String extractText(File file) {
-//        Commandline commandline = createCommandLine(EXTRACT_TEXT_COMMAND, "-raw", file.getAbsolutePath(), "-");
-//        CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
-//        CommandLineUtils.StringStreamConsumer out = new CommandLineUtils.StringStreamConsumer();
-//        runCommandLine(commandline, err, out);
-//
-//        String output = out.getOutput();
-//        if (!output.isEmpty()) {
-//            return output;
-//        }
-//
-//        String error = err.getOutput();
-//        if (!error.isEmpty()) {
-//            log.error(error);
-//        }
-//        return null;
-//    }
+
+    String extractText(File file) {
+        Commandline commandline = createCommandLine(EXTRACT_TEXT_COMMAND, "-raw", file.getAbsolutePath(), "-");
+        CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
+        CommandLineUtils.StringStreamConsumer out = new CommandLineUtils.StringStreamConsumer();
+        runCommandLine(commandline, err, out);
+
+        String output = out.getOutput();
+        if (!output.isEmpty()) {
+            return output;
+        }
+
+        String error = err.getOutput();
+        if (!error.isEmpty()) {
+            log.error(error);
+        }
+        return null;
+    }
 
     private Commandline createCommandLine(String exifCommand, String... arguments) {
         Commandline commandline = new Commandline();

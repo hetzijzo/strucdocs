@@ -10,6 +10,9 @@ zuul:
     transpose-service:
       path: /transpose/**
       stripPrefix: false
+    document-service:
+      path: /documents/**
+      stripPrefix: false
 
 
 eureka:

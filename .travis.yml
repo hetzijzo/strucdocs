@@ -3,7 +3,7 @@ cache:
   directories:
     - $HOME/.m2
     - $HOME/.gradle/wrapper/
-#    - $HOME/.gradle/caches/
+    - $HOME/.gradle/caches/
 language: java
 jdk:
   - oraclejdk8

@@ -2,6 +2,7 @@ include ":strucdocs-auth",
     ":strucdocs-document-service",
     ":strucdocs-edge",
 	":strucdocs-eureka",
+    ":strucdocs-song-service",
     ":strucdocs-zipkin",
 	":strucdocs-transpose-service"
 rootProject.name = 'strucdocs'

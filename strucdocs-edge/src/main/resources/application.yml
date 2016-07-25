@@ -7,12 +7,15 @@ zuul:
   routes:
     eureka: /eureka/**
     zipkin: /zipkin/**
-    transpose-service:
-      path: /transpose/**
-      stripPrefix: false
     document-service:
       path: /documents/**
       stripPrefix: false
+    transpose-service:
+      path: /transpose/**
+      stripPrefix: false
+    song-service:
+      path: /songs/**
+      stripPrefix: true
 
 
 eureka:

@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,19 +31,24 @@ public class TransposeControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private ParameterizedTypeReference<Resource<TransposeResponse>> responseType =
+        new ParameterizedTypeReference<Resource<TransposeResponse>>() {
+        };
+
     @Test
     public void transposeWithSimpleChord() {
         Chord chordRequest = Chord.builder().note(Note.C).build();
 
-        ResponseEntity<TransposeResponse> transposeResponseEntity =
-            restTemplate.postForEntity("/",
-                TransposeRequest.builder().chord(chordRequest).key(-1).build(),
-                TransposeResponse.class);
+        ResponseEntity<Resource<TransposeResponse>> transposeResponseEntity =
+            restTemplate.exchange("/",
+                HttpMethod.POST,
+                new HttpEntity<>(TransposeRequest.builder().chord(chordRequest).key(-1).build()),
+                responseType);
 
         assertThat(transposeResponseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(transposeResponseEntity.getHeaders().getContentType(), equalTo(MediaType.APPLICATION_JSON_UTF8));
 
-        TransposeResponse transposeResponse = transposeResponseEntity.getBody();
+        TransposeResponse transposeResponse = transposeResponseEntity.getBody().getContent();
         assertThat(transposeResponse, notNullValue());
         assertThat(transposeResponse.getChord().toString(), equalTo("B"));
     }
@@ -50,15 +57,16 @@ public class TransposeControllerIntegrationTest {
     public void transposeWithoutKey() {
         Chord chordRequest = Chord.builder().note(Note.C).build();
 
-        ResponseEntity<TransposeResponse> transposeResponseEntity =
-            restTemplate.postForEntity("/",
-                TransposeRequest.builder().chord(chordRequest).build(),
-                TransposeResponse.class);
+        ResponseEntity<Resource<TransposeResponse>> transposeResponseEntity =
+            restTemplate.exchange("/",
+                HttpMethod.POST,
+                new HttpEntity<>(TransposeRequest.builder().chord(chordRequest).build()),
+                responseType);
 
         assertThat(transposeResponseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(transposeResponseEntity.getHeaders().getContentType(), equalTo(MediaType.APPLICATION_JSON_UTF8));
 
-        TransposeResponse transposeResponse = transposeResponseEntity.getBody();
+        TransposeResponse transposeResponse = transposeResponseEntity.getBody().getContent();
         assertThat(transposeResponse.getChord(), equalTo(transposeResponse.getOriginalChord()));
         assertThat(transposeResponse.getKey(), equalTo(0));
     }
@@ -73,16 +81,18 @@ public class TransposeControllerIntegrationTest {
             .addition(Interval.dim5)
             .build();
 
-        ResponseEntity<TransposeResponse> transposeResponseEntity =
-            restTemplate.postForEntity("/",
-                TransposeRequest.builder().chord(chordRequest).key(2).build(),
-                TransposeResponse.class);
+        ResponseEntity<Resource<TransposeResponse>> transposeResponseEntity =
+            restTemplate.exchange("/",
+                HttpMethod.POST,
+                new HttpEntity<>(TransposeRequest.builder().chord(chordRequest).key(2).build()),
+                responseType);
 
         assertThat(transposeResponseEntity.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(transposeResponseEntity.getHeaders().getContentType(), equalTo(MediaType.APPLICATION_JSON_UTF8));
-        assertThat(transposeResponseEntity.getBody().getChord().toString(), equalTo("Dmaj7b5/A"));
-        assertThat(transposeResponseEntity.getBody().getOriginalChord().toString(), equalTo("Cmaj7b5/G"));
-        assertThat(transposeResponseEntity.getBody().getKey(), equalTo(2));
+        TransposeResponse response = transposeResponseEntity.getBody().getContent();
+        assertThat(response.getChord().toString(), equalTo("Dmaj7b5/A"));
+        assertThat(response.getOriginalChord().toString(), equalTo("Cmaj7b5/G"));
+        assertThat(response.getKey(), equalTo(2));
     }
 
     @Test

@@ -4,6 +4,9 @@ buildscript {
         springBootVersion = '1.4.0.RC1'
         springCloudVersion = 'Brixton.SR3'
     }
+
+    ext['lombok.version'] = '1.16.10'
+
     repositories {
         jcenter()
         maven { url "https://repo.spring.io/milestone" }
@@ -17,11 +20,11 @@ buildscript {
 
 configure(subprojects) {
 
-    apply plugin: 'java'
     apply plugin: 'application'
-    apply plugin: 'idea'
-    apply plugin: 'spring-boot'
     apply plugin: 'com.bmuschko.docker-java-application'
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'spring-boot'
 
     sourceCompatibility = "${javaVersion}"
     targetCompatibility = "${javaVersion}"

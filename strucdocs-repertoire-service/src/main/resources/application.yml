@@ -3,4 +3,3 @@ info.id: ${spring.application.name}
 
 server:
   port: ${PORT:8083}
-  context-path: /repertoire

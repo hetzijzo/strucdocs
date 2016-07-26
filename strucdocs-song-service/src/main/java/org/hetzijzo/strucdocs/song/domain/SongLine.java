@@ -16,6 +16,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -29,6 +30,7 @@ public class SongLine {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID uuid;
 
+    @NotNull
     private String lyrics;
 
     @Singular

@@ -1,22 +1,17 @@
-package org.hetzijzo.strucdocs.song.domain;
+package org.hetzijzo.strucdocs.repertoire.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -24,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Artist {
+public class RepertoireSong {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -32,9 +27,9 @@ public class Artist {
     private UUID uuid;
 
     @NotNull
-    private String name;
+    private UUID songUuid;
 
-    @Singular
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    private Set<Song> songs = new LinkedHashSet<>();
+    private UUID documentUuid;
+
+    private String key;
 }

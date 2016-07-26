@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -32,6 +33,7 @@ public class SongPart {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID uuid;
 
+    @NotNull
     private String type;
 
     @Singular

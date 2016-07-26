@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -32,12 +33,15 @@ public class Song {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID uuid;
 
+    @NotNull
     private String title;
 
     @ManyToOne
     @JoinColumn(name = "artist_uuid")
+    @NotNull
     private Artist artist;
 
+    @NotNull
     private String key;
 
     @Singular

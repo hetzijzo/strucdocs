@@ -10,9 +10,12 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+    compile('org.springframework.hateoas:spring-hateoas')
+    compile('org.springframework.plugin:spring-plugin-core')
     compile('org.projectlombok:lombok')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 
     runtime('com.h2database:h2')
+    runtime('com.jayway.jsonpath:json-path')
 }

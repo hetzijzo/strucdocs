@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.UUID;
 
-@RepositoryRestResource
+@RepositoryRestResource(path = "/songs", collectionResourceRel = "songs", itemResourceRel = "song")
 public interface SongRepository extends PagingAndSortingRepository<Song, UUID> {
 }

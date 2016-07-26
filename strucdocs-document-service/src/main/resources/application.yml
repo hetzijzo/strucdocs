@@ -3,7 +3,6 @@ info.id: ${spring.application.name}
 
 server:
   port: ${PORT:8081}
-  context-path: /documents
 
 spring:
   couchbase:

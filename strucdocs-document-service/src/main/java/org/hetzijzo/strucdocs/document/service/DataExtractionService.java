@@ -90,7 +90,7 @@ public class DataExtractionService {
     private void runCommandLine(Commandline commandline, CommandLineUtils.StringStreamConsumer err,
                                 CommandLineUtils.StringStreamConsumer out) {
         try {
-            CommandLineUtils.executeCommandLine(commandline, out, err);
+            CommandLineUtils.executeCommandLine(commandline, out, err, 5);
         } catch (CommandLineException ex) {
             throw new DataExtractionException(ex);
         }

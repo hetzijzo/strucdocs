@@ -1,4 +1,9 @@
 sudo: required
+addons:
+  apt:
+    packages:
+      - libimage-exiftool-perl
+      - poppler-utils
 cache:
   directories:
     - $HOME/.m2

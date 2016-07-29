@@ -8,6 +8,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
+import org.hetzijzo.strucdocs.document.CommandLineConfiguration;
 import org.hetzijzo.strucdocs.document.domain.StrucdocsDocument;
 import org.hetzijzo.strucdocs.document.exception.DataExtractionException;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,18 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 public class DataExtractionService {
 
-    private static final String EXIF_COMMAND = "C:\\Data\\Programs\\exiftool.exe";
-    private static final String EXTRACT_TEXT_COMMAND = "C:\\Data\\Programs\\xpdfbin-win-3.04\\bin64\\pdftotext.exe";
-
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ssz");
 
+    private final CommandLineConfiguration commandLineConfiguration;
+
+    public DataExtractionService(CommandLineConfiguration commandLineConfiguration) {
+        this.commandLineConfiguration = commandLineConfiguration;
+    }
+
     StrucdocsDocument extractMetadata(File file) {
-        Commandline commandline = createCommandLine(EXIF_COMMAND, "-json", "-n", file.getAbsolutePath());
+        Commandline
+            commandline =
+            createCommandLine(commandLineConfiguration.getExifCommand(), "-json", "-n", file.getAbsolutePath());
         CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
         CommandLineUtils.StringStreamConsumer out = new CommandLineUtils.StringStreamConsumer();
         runCommandLine(commandline, err, out);
@@ -63,7 +69,8 @@ public class DataExtractionService {
     }
 
     String extractText(File file) {
-        Commandline commandline = createCommandLine(EXTRACT_TEXT_COMMAND, "-raw", file.getAbsolutePath(), "-");
+        Commandline commandline = createCommandLine(commandLineConfiguration.getExtractTextCommand(),
+            "-raw", file.getAbsolutePath(), "-");
         CommandLineUtils.StringStreamConsumer err = new CommandLineUtils.StringStreamConsumer();
         CommandLineUtils.StringStreamConsumer out = new CommandLineUtils.StringStreamConsumer();
         runCommandLine(commandline, err, out);

@@ -36,10 +36,7 @@ public class DocumentControllerTest {
 
     @Test
     public void saveDocument() throws Exception {
-
         HttpEntity request = new HttpEntity(null);
         restTemplate.exchange("/", HttpMethod.POST, request, Void.class);
-
     }
-
 }

@@ -1,7 +1,7 @@
 buildscript {
     ext {
         javaVersion = 1.8
-        springBootVersion = '1.4.0.RC1'
+        springBootVersion = '1.4.0.RELEASE'
         springCloudVersion = 'Brixton.SR3'
     }
 
@@ -9,8 +9,6 @@ buildscript {
 
     repositories {
         jcenter()
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://repo.spring.io/snapshot" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -31,8 +29,6 @@ configure(subprojects) {
 
     repositories {
         jcenter()
-        maven { url "https://repo.spring.io/milestone" }
-        maven { url "https://repo.spring.io/snapshot" }
     }
 
     dependencyManagement {

@@ -5,8 +5,6 @@ buildscript {
         springCloudVersion = 'Brixton.SR3'
     }
 
-    ext['lombok.version'] = '1.16.10'
-
     repositories {
         jcenter()
     }
@@ -45,5 +43,5 @@ configure(subprojects) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    gradleVersion = '3.0'
 }

@@ -1,45 +1,97 @@
 buildscript {
     ext {
         javaVersion = 1.8
-        springBootVersion = '1.4.0.RELEASE'
-        springCloudVersion = 'Brixton.SR3'
+        springBootVersion = '1.4.2.RELEASE'
+        //springCloudVersion = 'Brixton.SR3'
     }
 
     repositories {
+        mavenLocal()
         jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath('com.bmuschko:gradle-docker-plugin:3.0.1')
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.0'
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
     }
 }
 
-configure(subprojects) {
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'jacoco'
+    id 'org.sonarqube' version '2.2.1'
+    id 'com.jfrog.artifactory' version '4.4.9'
+    id 'com.github.ben-manes.versions' version '0.13.0'
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
 
-    apply plugin: 'application'
-    apply plugin: 'com.bmuschko.docker-java-application'
-    apply plugin: 'idea'
-    apply plugin: 'java'
-    apply plugin: 'spring-boot'
+apply plugin: 'application'
+apply plugin: 'com.bmuschko.docker-java-application'
+apply plugin: 'org.springframework.boot'
 
-    sourceCompatibility = "${javaVersion}"
-    targetCompatibility = "${javaVersion}"
+sourceCompatibility = "${javaVersion}"
+targetCompatibility = "${javaVersion}"
 
-    repositories {
-        jcenter()
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+//dependencyManagement {
+//    imports {
+//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+//    }
+//}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
+    compile('org.springframework.boot:spring-boot-starter-undertow')
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-        }
-    }
+    compile('org.springframework.hateoas:spring-hateoas')
 
-    docker {
-        javaApplication {
-            maintainer = 'Willem Cheizoo "w.cheizoo@gmail.com"'
-        }
+    compile('org.projectlombok:lombok')
+
+    compile('org.apache.commons:commons-lang3:3.4')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    runtime('com.h2database:h2')
+}
+
+springBoot {
+    executable = true
+    buildInfo()
+}
+
+docker {
+    javaApplication {
+        maintainer = 'Willem Cheizoo "w.cheizoo@gmail.com"'
     }
+}
+
+asciidoctor {
+    outputDir = file('public')
+    separateOutputDirs = false
+    requires = ['asciidoctor-diagram']
+    attributes buildDir: buildDir,
+        'source-highlighter': 'highlight.js',
+        toc: 'left',
+        toclevels: '3',
+        numbered: '',
+        icons: 'font',
+        idseparator: '-',
+        sectnums: 'true',
+        sectlinks: '',
+        sectanchors: '',
+        hardbreaks: '',
+        docinfo1: 'true'
 }
 
 task wrapper(type: Wrapper) {

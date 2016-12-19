@@ -1,21 +1,19 @@
-package org.hetzijzo.strucdocs.transpose.rest;
+package org.strucdocs.component.transpose;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.hetzijzo.strucdocs.transpose.domain.Chord;
-
-import javax.validation.constraints.NotNull;
+import org.strucdocs.model.Chord;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransposeRequest {
+public class TransposeResponse {
 
-    @NotNull
     private Chord chord;
+    private Chord originalChord;
     private int key;
 }

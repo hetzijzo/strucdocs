@@ -1,9 +1,9 @@
-include ":strucdocs-auth",
-    ":strucdocs-document-service",
-    ":strucdocs-edge",
-	":strucdocs-eureka",
-    ":strucdocs-repertoire-service",
-    ":strucdocs-song-service",
-    ":strucdocs-zipkin",
-	":strucdocs-transpose-service"
+//include ":strucdocs-auth",
+//    ":strucdocs-document-service",
+//    ":strucdocs-edge",
+//	":strucdocs-eureka",
+//    ":strucdocs-repertoire-service",
+//    ":strucdocs-song-service",
+//    ":strucdocs-zipkin",
+//	":strucdocs-transpose-service"
 rootProject.name = 'strucdocs'

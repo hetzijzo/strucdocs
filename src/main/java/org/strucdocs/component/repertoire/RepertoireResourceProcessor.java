@@ -1,29 +1,24 @@
-package org.hetzijzo.strucdocs.repertoire;
+package org.strucdocs.component.repertoire;
 
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import org.hetzijzo.strucdocs.repertoire.domain.RepertoireSong;
-import org.springframework.cloud.client.hypermedia.DiscoveredResource;
-import org.springframework.data.rest.webmvc.support.BaseUriLinkBuilder;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
+import org.strucdocs.component.song.SongRepository;
+import org.strucdocs.model.RepertoireSong;
 
-import java.net.URI;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @Component
 @RequiredArgsConstructor
 public class RepertoireResourceProcessor implements ResourceProcessor<Resource<RepertoireSong>> {
 
-    @NonNull
-    private final DiscoveredResource songResource;
-
     @Override
     public Resource<RepertoireSong> process(Resource<RepertoireSong> resource) {
         if (resource.getContent().getSongUuid() != null) {
             resource.add(
-                BaseUriLinkBuilder.create(URI.create(songResource.getLink().expand().getHref()))
+                linkTo(SongRepository.class)
                     .slash(resource.getContent().getSongUuid())
                     .withRel("song")
             );

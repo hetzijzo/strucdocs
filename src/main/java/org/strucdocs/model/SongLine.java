@@ -1,5 +1,6 @@
-package org.hetzijzo.strucdocs.repertoire.domain;
+package org.strucdocs.model;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,24 +9,23 @@ import lombok.Singular;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor
-public class Repertoire {
+public class SongLine implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -33,14 +33,9 @@ public class Repertoire {
     private UUID uuid;
 
     @NotNull
-    private UUID bandUuid;
-
-    @NotNull
-    private String name;
+    private String lyrics;
 
     @Singular
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "repertoire_uuid")
-    private Set<RepertoireSong> songs = new LinkedHashSet<>();
-
+    @ElementCollection
+    private Set<String> chords = new LinkedHashSet<>();
 }

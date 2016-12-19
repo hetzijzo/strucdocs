@@ -1,8 +1,8 @@
-package org.hetzijzo.strucdocs.repertoire;
+package org.strucdocs.component.repertoire;
 
-import org.hetzijzo.strucdocs.repertoire.domain.Repertoire;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.strucdocs.model.Repertoire;
 
 import java.util.UUID;
 

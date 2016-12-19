@@ -1,11 +1,11 @@
-package org.hetzijzo.strucdocs.transpose.service;
+package org.strucdocs.component.transpose;
 
-import org.hetzijzo.strucdocs.transpose.domain.Chord;
-import org.hetzijzo.strucdocs.transpose.domain.Scale;
 import org.springframework.stereotype.Service;
+import org.strucdocs.model.Chord;
+import org.strucdocs.model.Scale;
 
 @Service
-public class TransposeService {
+class TransposeService {
 
     public Chord transposeChord(Chord chord, int key) {
         Scale scale = getScale(key);

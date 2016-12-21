@@ -6,8 +6,14 @@ import org.strucdocs.model.User;
 
 import java.util.UUID;
 
-@RepositoryRestResource(path = "users", collectionResourceRel = "users")
+@RepositoryRestResource(exported = false)
 public interface UserRepository extends PagingAndSortingRepository<User, UUID> {
 
+    /**
+     * Find a User by its username.
+     *
+     * @param username The username of the user
+     * @return The User
+     */
     User findByUsername(String username);
 }

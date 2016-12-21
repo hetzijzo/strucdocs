@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class SongPart implements Serializable {
+public final class SongPart implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -41,7 +41,7 @@ public class SongPart implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "songpart_uuid")
-    private Set<SongLine> lines = new LinkedHashSet<>();
+    private final Set<SongLine> lines = new LinkedHashSet<>();
 
     @Builder
     @JsonCreator
@@ -50,6 +50,10 @@ public class SongPart implements Serializable {
                      @JsonProperty("lines") @Singular Set<SongLine> lines) {
         this.uuid = uuid;
         this.type = type;
+        setLines(lines);
+    }
+
+    private void setLines(Set<SongLine> lines) {
         if (lines != null) {
             this.lines.addAll(lines);
         }

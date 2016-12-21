@@ -11,5 +11,11 @@ import java.util.UUID;
 @RepositoryRestResource(path = "songs", collectionResourceRel = "songs", itemResourceRel = "song")
 public interface SongRepository extends PagingAndSortingRepository<Song, UUID> {
 
-    List<Song> findByArtistName(@Param("artist.name") String artistName);
+    /**
+     * Find all Songs based on the artist UUID.
+     *
+     * @param artistUuid The UUID of the songs artist
+     * @return List of Song
+     */
+    List<Song> findByArtistUuid(@Param("artistUuid") UUID artistUuid);
 }

@@ -22,6 +22,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -36,24 +37,29 @@ public class Repertoire implements Serializable {
     private UUID uuid;
 
     @NotNull
-    private UUID bandUuid;
-
-    @NotNull
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "band_uuid")
+    private Band band;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "repertoire_uuid")
-    private Set<RepertoireSong> songs = new LinkedHashSet<>();
+    private final Set<RepertoireSong> songs = new LinkedHashSet<>();
 
     @Builder
     @JsonCreator
     private Repertoire(@JsonProperty("uuid") UUID uuid,
-                       @JsonProperty("bandUuid") UUID bandUuid,
+                       @JsonProperty("band") Band band,
                        @JsonProperty("name") String name,
                        @JsonProperty("songs") @Singular Set<RepertoireSong> songs) {
         this.uuid = uuid;
-        this.bandUuid = bandUuid;
+        this.band = band;
         this.name = name;
+        setSongs(songs);
+    }
+
+    public void setSongs(Set<RepertoireSong> songs) {
         if (songs != null) {
             this.songs.addAll(songs);
         }

@@ -20,7 +20,7 @@ import java.util.Set;
 @Data
 @JsonSerialize(using = ChordJsonSerializer.class)
 @JsonDeserialize(using = ChordJsonDeserializer.class)
-public class Chord implements Serializable {
+public final class Chord implements Serializable {
 
     public static final String GROUNDNOTE_SEPERATOR = "/";
 

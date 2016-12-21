@@ -1,6 +1,9 @@
 package org.strucdocs.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum Instrument {
+
     GENERAL,
     VOCALIST,
     GUITARIST,
@@ -12,4 +15,9 @@ public enum Instrument {
     WOODWIND,
     TECHNICIAN,
     OTHER;
+
+    @Override
+    public String toString() {
+        return StringUtils.capitalize(StringUtils.lowerCase(name()));
+    }
 }

@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class RepertoireSong implements Serializable {
+public final class RepertoireSong implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")

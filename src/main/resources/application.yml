@@ -1,2 +1,28 @@
 spring.application.name: strucdocs
 info.id: ${spring.application.name}
+
+server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,application/json,application/xml,text/javascript,application/javascript
+
+security:
+  oauth2:
+#Facebook
+    client:
+      #clientId: 1808601799427747
+      #clientSecret: a4e3b1f95c075c1cf5fbd2d1c8d3218e
+      clientId: 1808981859389741
+      clientSecret: a042a6c2e365eafbb07d4994e4ed342e
+      accessTokenUri: https://graph.facebook.com/oauth/access_token
+      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://graph.facebook.com/me
+
+#logging:
+#  level:
+#    org.springframework: ERROR

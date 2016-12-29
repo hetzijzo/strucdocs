@@ -2,27 +2,26 @@ package org.strucdocs.component.repertoire;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
-import org.strucdocs.component.song.SongRepository;
 import org.strucdocs.model.RepertoireSong;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import org.strucdocs.model.Song;
 
 @Component
 @RequiredArgsConstructor
 public class RepertoireResourceProcessor implements ResourceProcessor<Resource<RepertoireSong>> {
 
+    private final EntityLinks entityLinks;
+
     @Override
     public Resource<RepertoireSong> process(Resource<RepertoireSong> resource) {
-        if (resource.getContent().getSongUuid() != null) {
-            resource.add(
-                linkTo(SongRepository.class)
-                    .slash(resource.getContent().getSongUuid())
-                    .withRel("song")
-            );
-        }
+        resource.add(
+            entityLinks.linkFor(Song.class)
+                .slash(resource.getContent().getSongUuid())
+                .withRel("song")
+        );
         return resource;
     }
 }

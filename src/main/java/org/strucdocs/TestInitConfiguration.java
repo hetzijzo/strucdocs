@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.strucdocs.component.artist.ArtistRepository;
 import org.strucdocs.component.band.BandRepository;
 import org.strucdocs.component.musician.MusicianRepository;
@@ -20,6 +21,7 @@ import org.strucdocs.model.Song;
 import org.strucdocs.model.User;
 
 @Configuration
+@Profile("test")
 public class TestInitConfiguration {
 
     @Autowired
@@ -68,6 +70,7 @@ public class TestInitConfiguration {
                 .name("Big Repertoire")
                 .band(band)
                 .song(RepertoireSong.builder().songUuid(song1.getUuid()).build())
+                .song(RepertoireSong.builder().songUuid(song2.getUuid()).build())
                 .build()
             );
         };
@@ -79,12 +82,5 @@ public class TestInitConfiguration {
             .band(band)
             .instrument(instrument)
             .build());
-    }
-
-    @Bean
-    CommandLineRunner createSongs_Artists() {
-        return args -> {
-
-        };
     }
 }

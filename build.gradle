@@ -1,7 +1,7 @@
 buildscript {
     ext {
         javaVersion = 1.8
-        springBootVersion = '1.4.2.RELEASE'
+        springBootVersion = '1.4.3.RELEASE'
         //springCloudVersion = 'Brixton.SR3'
     }
 
@@ -63,6 +63,8 @@ dependencies {
     compile('org.apache.commons:commons-lang3:3.4')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
+    testCompile('org.springframework.restdocs:spring-restdocs-core:1.1.0.RELEASE')
 
     runtime('com.h2database:h2')
 }

@@ -37,6 +37,7 @@ targetCompatibility = "${javaVersion}"
 repositories {
     mavenLocal()
     jcenter()
+    maven { url 'https://maven.repository.redhat.com/ga' }
 }
 
 //dependencyManagement {
@@ -46,6 +47,7 @@ repositories {
 //}
 
 dependencies {
+    // Spring
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
@@ -55,13 +57,19 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     compile('org.springframework.boot:spring-boot-starter-undertow')
-
     compile('org.springframework.hateoas:spring-hateoas')
 
     compile('org.projectlombok:lombok')
 
+    // Commons
     compile('org.apache.commons:commons-lang3:3.5')
 
+    // YAML support
+    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.4')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.4')
+    compile('org.projectodd:yaml-schema:0.2')
+
+    // Test
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
     testCompile('org.springframework.restdocs:spring-restdocs-core:1.1.2.RELEASE')

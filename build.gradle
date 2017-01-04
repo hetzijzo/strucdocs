@@ -21,7 +21,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
-    id 'org.sonarqube' version '2.2.1'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'com.jfrog.artifactory' version '4.4.9'
     id 'com.github.ben-manes.versions' version '0.13.0'
     id 'org.asciidoctor.convert' version '1.5.3'
@@ -39,12 +39,6 @@ repositories {
     jcenter()
     maven { url 'https://maven.repository.redhat.com/ga' }
 }
-
-//dependencyManagement {
-//    imports {
-//        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-//    }
-//}
 
 dependencies {
     // Spring
@@ -65,8 +59,8 @@ dependencies {
     compile('org.apache.commons:commons-lang3:3.5')
 
     // YAML support
-    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.4')
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.4')
+    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.5')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5')
     compile('org.projectodd:yaml-schema:0.2')
 
     // Test
@@ -80,6 +74,13 @@ dependencies {
 springBoot {
     executable = true
     buildInfo()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
 
 docker {

@@ -20,9 +20,9 @@ import static org.springframework.http.HttpStatus.OK
 @ContextConfiguration
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Rollback
 class ArtistRepositorySpecIT extends RestOAuthAbstractSpecification {
 
-    @Rollback
     def "should get empty artists"() {
         given: "No there are no artists"
         when: "All artists are requested"

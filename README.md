@@ -6,3 +6,8 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/11320/badge.svg)](https://scan.coverity.com/projects/11320)
 
 Reviews
+
+
+waffle.io
+readthedocs.
+https://codeclimate.com

@@ -63,6 +63,11 @@ dependencies {
     compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.5')
     compile('org.projectodd:yaml-schema:0.2')
 
+    //Documents
+    compile('org.codehaus.plexus:plexus-utils:3.0.21')
+    compile('org.codehaus.jettison:jettison:1.3.8')
+
+
     // Test
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')

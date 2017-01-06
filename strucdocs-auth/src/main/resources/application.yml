@@ -1,7 +1,0 @@
-spring.application.name: auth
-info.id: ${spring.application.name}
-
-server:
-  port: ${PORT:9191}
-  contextPath: /uaa
-security.sessions: if_required

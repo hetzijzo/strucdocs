@@ -26,6 +26,14 @@ public enum Note {
         this.notation = notation;
     }
 
+    public boolean isFlat() {
+        return getNotation().endsWith("b");
+    }
+
+    public boolean isSharp() {
+        return getNotation().endsWith("#");
+    }
+
     /**
      * Gets the String notation of this Note.
      *
@@ -43,10 +51,6 @@ public enum Note {
      * @return The transposed note.
      */
     public Note transpose(Scale scale, int steps) {
-        if (steps < -1) {
-            throw new IllegalArgumentException("Steps cannot be less than zero.");
-        }
-
         return scale.transpose(this, steps);
     }
 

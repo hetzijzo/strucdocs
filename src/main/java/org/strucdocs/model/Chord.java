@@ -14,7 +14,7 @@ import org.strucdocs.model.converter.ChordJsonSerializer;
 
 import java.io.Serializable;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
@@ -26,7 +26,7 @@ public final class Chord implements Serializable {
 
     private final Note note;
     private final Note groundNote;
-    private final Set<Interval> additions = new HashSet<>();
+    private final Set<Interval> additions = new LinkedHashSet<>();
 
     @Builder
     @JsonCreator

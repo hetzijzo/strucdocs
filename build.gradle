@@ -1,7 +1,7 @@
 buildscript {
     ext {
         javaVersion = 1.8
-        springBootVersion = '1.4.3.RELEASE'
+        springBootVersion = '1.5.1.RELEASE'
         //springCloudVersion = 'Brixton.SR3'
     }
 
@@ -21,6 +21,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
+    id 'org.springframework.boot'
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'com.jfrog.artifactory' version '4.4.9'
     id 'com.github.ben-manes.versions' version '0.13.0'
@@ -29,7 +30,6 @@ plugins {
 
 apply plugin: 'application'
 apply plugin: 'com.bmuschko.docker-java-application'
-apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = "${javaVersion}"
 targetCompatibility = "${javaVersion}"
@@ -38,6 +38,7 @@ repositories {
     mavenLocal()
     jcenter()
     maven { url 'https://maven.repository.redhat.com/ga' }
+    maven { url 'https://repo.itextsupport.com/releases' }
 }
 
 dependencies {
@@ -67,6 +68,8 @@ dependencies {
     compile('org.codehaus.plexus:plexus-utils:3.0.24')
     compile('org.codehaus.jettison:jettison:1.3.8')
 
+    //iText
+    compile('com.itextpdf:itextpdf:5.5.10')
 
     // Test
     testCompile('org.springframework.boot:spring-boot-starter-test')

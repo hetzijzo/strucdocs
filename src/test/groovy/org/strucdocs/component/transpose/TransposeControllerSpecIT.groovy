@@ -5,6 +5,7 @@ import org.springframework.core.ParameterizedTypeReference
 import org.springframework.hateoas.Resource
 import org.springframework.http.HttpEntity
 import org.springframework.http.ResponseEntity
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.strucdocs.RestOAuthAbstractSpecification
 import org.strucdocs.model.Chord
@@ -16,6 +17,7 @@ import static org.springframework.http.HttpStatus.OK
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class TransposeControllerSpecIT extends RestOAuthAbstractSpecification {
 
     def "should transpose with simple chord"() {

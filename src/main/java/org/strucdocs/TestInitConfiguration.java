@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.strucdocs.component.artist.ArtistRepository;
 import org.strucdocs.component.band.BandRepository;
+import org.strucdocs.component.document.DocumentGeneratorService;
 import org.strucdocs.component.musician.MusicianRepository;
 import org.strucdocs.component.repertoire.RepertoireRepository;
 import org.strucdocs.component.song.SongRepository;
@@ -18,7 +19,13 @@ import org.strucdocs.model.Musician;
 import org.strucdocs.model.Repertoire;
 import org.strucdocs.model.RepertoireSong;
 import org.strucdocs.model.Song;
+import org.strucdocs.model.SongLine;
+import org.strucdocs.model.SongPart;
 import org.strucdocs.model.User;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 @Configuration
 @Profile("test")
@@ -36,6 +43,9 @@ public class TestInitConfiguration {
     ArtistRepository artistRepository;
     @Autowired
     SongRepository songRepository;
+
+    @Autowired
+    DocumentGeneratorService documentGeneratorService;
 
     @Bean
     CommandLineRunner createBand_Members_Users() {
@@ -63,8 +73,74 @@ public class TestInitConfiguration {
                 .build();
             artistRepository.save(artist);
 
-            Song song1 = songRepository.save(Song.builder().artist(artist).title("Thriller").build());
+            Song song1 = songRepository.save(
+                Song.builder()
+                    .artist(artist)
+                    .title("Thriller")
+                    .part(SongPart.builder()
+                        .type("Intro")
+                        .line(SongLine.builder()
+                            .chord("C#m7")
+                            .chord("F#7")
+                            .chord("G#")
+                            .build())
+                        .line(SongLine.builder()
+                            .chord("C#m")
+                            .chord("E")
+                            .chord("F#")
+                            .chord("C#m")
+                            .build())
+                        .line(SongLine.builder()
+                            .chord("C#m7")
+                            .chord("F#7")
+                            .build())
+                        .line(SongLine.builder()
+                            .chord("C#m7")
+                            .chord("F#7")
+                            .build())
+                        .build())
+                    .part(SongPart.builder()
+                        .type("Verse 1")
+                        .line(SongLine.builder()
+                            .lyrics("It's close to midnight, and something evil's, lurking in the dark.")
+                            .chord("C#m7")
+                            .chord("F#7")
+                            .build())
+                        .line(SongLine.builder()
+                            .lyrics("Under the moonlight, you see a sight, that almost stops your heart.")
+                            .chord("C#m")
+                            .build())
+                        .line(SongLine.builder()
+                            .lyrics("You try to scream, but terror takes the sound, before you make it.")
+                            .chord("F#7")
+                            .chord("C#m7")
+                            .build())
+                        .line(SongLine.builder()
+                            .lyrics("You start to freeze, as horror looks you right between the eyes.")
+                            .chord("F#7")
+                            .chord("C#m7")
+                            .build())
+                        .line(SongLine.builder()
+                            .lyrics("You're para-lyzed.")
+                            .chord("G#m")
+                            .build())
+                        .build())
+                    .build()
+            );
+
             Song song2 = songRepository.save(Song.builder().artist(artist).title("Bad").build());
+
+            String dest1 = "/home/willem/Documents/song1.pdf";
+            File file1 = new File(dest1);
+            file1.getParentFile().mkdirs();
+            OutputStream outputStream1 = new FileOutputStream(file1);
+            documentGeneratorService.generateDocument(outputStream1, song1);
+
+//            String dest2 = "/home/willem/Documents/song2.pdf";
+//            File file2 = new File(dest2);
+//            file2.getParentFile().mkdirs();
+//            OutputStream outputStream2 = new FileOutputStream(file2);
+//            documentGeneratorService.generateDocument(outputStream2, song2);
 
             repertoireRepository.save(Repertoire.builder()
                 .name("Big Repertoire")

@@ -21,7 +21,6 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
-    id 'org.springframework.boot'
     id 'com.github.kt3k.coveralls' version '2.6.3'
     id 'com.jfrog.artifactory' version '4.4.9'
     id 'com.github.ben-manes.versions' version '0.13.0'
@@ -30,6 +29,7 @@ plugins {
 
 apply plugin: 'application'
 apply plugin: 'com.bmuschko.docker-java-application'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = "${javaVersion}"
 targetCompatibility = "${javaVersion}"

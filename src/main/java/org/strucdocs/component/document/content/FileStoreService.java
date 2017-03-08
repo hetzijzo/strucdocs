@@ -1,4 +1,4 @@
-package org.strucdocs.component.document;
+package org.strucdocs.component.document.content;
 
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;

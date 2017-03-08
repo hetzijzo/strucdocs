@@ -1,4 +1,4 @@
-package org.strucdocs.component.document;
+package org.strucdocs.component.document.content;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,6 @@ import org.strucdocs.component.document.exception.DataExtractionException;
 import org.strucdocs.model.Document;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 
@@ -46,14 +44,14 @@ class DocumentExtractionService {
                     .filename(jsonObject.getString("FileName"))
                     .directory(jsonObject.getString("Directory"))
                     .size(jsonObject.getLong("FileSize"))
-                    .pages(jsonObject.getLong("PageCount"))
-                    .mimeType(jsonObject.getString("MIMEType"))
-                    .accessDate(LocalDateTime.parse(jsonObject.getString("FileAccessDate"), DATE_TIME_FORMATTER)
-                        .toInstant(ZoneOffset.UTC))
-                    .createDate(LocalDateTime.parse(jsonObject.getString("FileCreateDate"), DATE_TIME_FORMATTER)
-                        .toInstant(ZoneOffset.UTC))
-                    .modifyDate(LocalDateTime.parse(jsonObject.getString("FileModifyDate"), DATE_TIME_FORMATTER)
-                        .toInstant(ZoneOffset.UTC))
+                    .pages(jsonObject.has("PageCount") ? jsonObject.getLong("PageCount") : 0)
+                    .mimeType(jsonObject.has("MIMEType") ? jsonObject.getString("MIMEType") : "application/pdf")
+//                    .accessDate(LocalDateTime.parse(jsonObject.getString("FileAccessDate"), DATE_TIME_FORMATTER)
+//                        .toInstant(ZoneOffset.UTC))
+//                    .createDate(LocalDateTime.parse(jsonObject.getString("FileCreateDate"), DATE_TIME_FORMATTER)
+//                        .toInstant(ZoneOffset.UTC))
+//                    .modifyDate(LocalDateTime.parse(jsonObject.getString("FileModifyDate"), DATE_TIME_FORMATTER)
+//                        .toInstant(ZoneOffset.UTC))
                     .build();
             } catch (JSONException ex) {
                 throw new DataExtractionException(ex);

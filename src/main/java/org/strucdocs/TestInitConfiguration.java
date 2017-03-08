@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.strucdocs.component.artist.ArtistRepository;
 import org.strucdocs.component.band.BandRepository;
 import org.strucdocs.component.document.DocumentGeneratorService;
+import org.strucdocs.component.document.content.DocumentContentService;
 import org.strucdocs.component.musician.MusicianRepository;
 import org.strucdocs.component.repertoire.RepertoireRepository;
 import org.strucdocs.component.song.SongRepository;
@@ -22,10 +23,6 @@ import org.strucdocs.model.Song;
 import org.strucdocs.model.SongLine;
 import org.strucdocs.model.SongPart;
 import org.strucdocs.model.User;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 @Configuration
 @Profile("test")
@@ -46,6 +43,8 @@ public class TestInitConfiguration {
 
     @Autowired
     DocumentGeneratorService documentGeneratorService;
+    @Autowired
+    DocumentContentService documentContentService;
 
     @Bean
     CommandLineRunner createBand_Members_Users() {
@@ -130,11 +129,14 @@ public class TestInitConfiguration {
 
             Song song2 = songRepository.save(Song.builder().artist(artist).title("Bad").build());
 
-            String dest1 = "/home/willem/Documents/song1.pdf";
-            File file1 = new File(dest1);
-            file1.getParentFile().mkdirs();
-            OutputStream outputStream1 = new FileOutputStream(file1);
-            documentGeneratorService.generateDocument(outputStream1, song1);
+//            String dest1 = "/home/willem/Documents/song1.pdf";
+//            File file1 = new File(dest1);
+//            file1.getParentFile().mkdirs();
+//            OutputStream outputStream1 = new FileOutputStream(file1);
+//            documentGeneratorService.generateDocument(outputStream1, song1);
+//
+//            MockMultipartFile multipartFile = new MockMultipartFile("song1", "my document content".getBytes());
+//            documentContentService.saveDocument(multipartFile);
 
 //            String dest2 = "/home/willem/Documents/song2.pdf";
 //            File file2 = new File(dest2);

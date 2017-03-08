@@ -3,8 +3,10 @@ package org.strucdocs.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,6 +21,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public final class Document implements Serializable {
 
     @Id

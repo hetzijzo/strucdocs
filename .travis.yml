@@ -1,11 +1,12 @@
 sudo: required
 addons:
-  code_climate:
-    repo_token: cf215ce22e6a57dc1711ee432d5e3526eea94636ea75822810ac9ceab7311f1f
   apt:
     packages:
       - libimage-exiftool-perl
       - poppler-utils
+addons:
+    code_climate:
+        repo_token: cf215ce22e6a57dc1711ee432d5e3526eea94636ea75822810ac9ceab7311f1f
 cache:
   directories:
     - $HOME/.m2

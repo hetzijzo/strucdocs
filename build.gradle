@@ -1,19 +1,35 @@
 buildscript {
     ext {
         javaVersion = 1.8
+
         springBootVersion = '1.5.2.RELEASE'
         //springCloudVersion = 'Brixton.SR3'
+        springSecurityOauth2Version = '2.1.0.RELEASE'
+
+        apacheCommonsLangVersion = '3.5'
+        asciidoctorjPdfVersion = '1.5.0-alpha.15'
+        asciidoctorjDiagramVersion = '1.5.4'
+        gradeDockerPluginVersion = '3.0.6'
+        itextpdfVersion = '5.5.11'
+        jettisonVersion = '1.3.8'
+        plexusUtilsVersion = '3.0.24'
+        springRestDocsVersion = '1.1.2.RELEASE'
+        spockSpringVersion = '1.0-groovy-2.4'
+        yamlSchemaVersion = '0.2'
+
+        coverallsVersion = '2.6.3'
     }
 
     repositories {
         mavenLocal()
         jcenter()
     }
+
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
-        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.0'
-        classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "org.asciidoctor:asciidoctorj-pdf:$asciidoctorjPdfVersion"
+        classpath "org.asciidoctor:asciidoctorj-diagram:$asciidoctorjDiagramVersion"
+        classpath "com.bmuschko:gradle-docker-plugin:$gradeDockerPluginVersion"
     }
 }
 
@@ -21,9 +37,9 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.6.3'
-    id 'com.jfrog.artifactory' version '4.4.9'
-    id 'com.github.ben-manes.versions' version '0.13.0'
+    id 'com.github.kt3k.coveralls' version '2.8.1'
+    id 'com.jfrog.artifactory' version '4.4.15'
+    id 'com.github.ben-manes.versions' version '0.14.0'
     id 'org.asciidoctor.convert' version '1.5.3'
 }
 
@@ -31,8 +47,8 @@ apply plugin: 'application'
 apply plugin: 'com.bmuschko.docker-java-application'
 apply plugin: 'org.springframework.boot'
 
-sourceCompatibility = "${javaVersion}"
-targetCompatibility = "${javaVersion}"
+sourceCompatibility = "$javaVersion"
+targetCompatibility = "$javaVersion"
 
 repositories {
     mavenLocal()
@@ -41,13 +57,23 @@ repositories {
     maven { url 'https://repo.itextsupport.com/releases' }
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
+    }
+}
+
+ext {
+    jacksonVersion = dependencyManagement.importedProperties['jackson.version']
+}
+
 dependencies {
     // Spring
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-security')
-    compile('org.springframework.security.oauth:spring-security-oauth2:2.0.12.RELEASE')
+    compile("org.springframework.security.oauth:spring-security-oauth2:$springSecurityOauth2Version")
     compile('org.springframework.boot:spring-boot-starter-web') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
@@ -57,24 +83,24 @@ dependencies {
     compile('org.projectlombok:lombok')
 
     // Commons
-    compile('org.apache.commons:commons-lang3:3.5')
+    compile("org.apache.commons:commons-lang3:$apacheCommonsLangVersion")
 
     // YAML support
-    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.6')
-    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.6')
-    compile('org.projectodd:yaml-schema:0.2')
+    compile("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    compile("org.projectodd:yaml-schema:$yamlSchemaVersion")
 
     //Documents
-    compile('org.codehaus.plexus:plexus-utils:3.0.24')
-    compile('org.codehaus.jettison:jettison:1.3.8')
+    compile("org.codehaus.plexus:plexus-utils:$plexusUtilsVersion")
+    compile("org.codehaus.jettison:jettison:$jettisonVersion")
 
     //iText
-    compile('com.itextpdf:itextpdf:5.5.10')
+    compile("com.itextpdf:itextpdf:$itextpdfVersion")
 
     // Test
     compile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.spockframework:spock-spring:1.0-groovy-2.4')
-    testCompile('org.springframework.restdocs:spring-restdocs-core:1.1.2.RELEASE')
+    testCompile("org.spockframework:spock-spring:$spockSpringVersion")
+    testCompile("org.springframework.restdocs:spring-restdocs-core:$springRestDocsVersion")
 
     runtime('com.h2database:h2')
 }

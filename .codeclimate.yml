@@ -2,6 +2,19 @@
 engines:
   fixme:
     enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript
+  scss-lint:
+    enabled: true
+  markdownlint:
+    enabled: true
 ratings:
-  paths: []
+  paths:
+  - "**.java"
+  - "**.js"
+  - "**.md"
+  - "**.scss"
 exclude_paths: []

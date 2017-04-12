@@ -62,4 +62,8 @@ public final class SongPart implements Serializable {
     public Set<SongLine> getLines() {
         return Collections.unmodifiableSet(lines);
     }
+
+    public void addLine(SongLine line) {
+        this.lines.add(line);
+    }
 }

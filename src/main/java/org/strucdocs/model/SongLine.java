@@ -35,25 +35,25 @@ public final class SongLine implements Serializable {
     private String lyrics;
 
     @ElementCollection
-    private final Set<String> chords = new LinkedHashSet<>();
+    private final Set<Chord> chords = new LinkedHashSet<>();
 
     @Builder
     @JsonCreator
     private SongLine(@JsonProperty("uuid") UUID uuid,
                      @JsonProperty("lyrics") String lyrics,
-                     @JsonProperty("chords") @Singular Set<String> chords) {
+                     @JsonProperty("chords") @Singular Set<Chord> chords) {
         this.uuid = uuid;
         this.lyrics = lyrics;
         setChords(chords);
     }
 
-    public void setChords(Set<String> chords) {
+    public void setChords(Set<Chord> chords) {
         if (chords != null) {
             this.chords.addAll(chords);
         }
     }
 
-    public Set<String> getChords() {
+    public Set<Chord> getChords() {
         return Collections.unmodifiableSet(chords);
     }
 }

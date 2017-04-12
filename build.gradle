@@ -1,7 +1,7 @@
 buildscript {
     ext {
         javaVersion = 1.8
-        springBootVersion = '1.4.3.RELEASE'
+        springBootVersion = '1.5.2.RELEASE'
         //springCloudVersion = 'Brixton.SR3'
     }
 
@@ -116,5 +116,5 @@ asciidoctor {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.0'
+    gradleVersion = '3.5'
 }

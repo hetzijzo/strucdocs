@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.strucdocs.model.Chord;
 import org.strucdocs.model.Song;
 import org.strucdocs.model.SongPart;
 
@@ -47,7 +48,9 @@ public class DocumentGeneratorService {
             part.getLines().forEach(line -> {
                 try {
                     Paragraph chordsParagraph = new Paragraph(
-                        line.getChords().stream().collect(Collectors.joining("  ")),
+                        line.getChords().stream()
+                            .map(Chord::toString)
+                            .collect(Collectors.joining("  ")),
                         new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD));
                     chordsParagraph.setIndentationLeft(15f);
 

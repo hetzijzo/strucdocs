@@ -1,5 +1,9 @@
 ---
 engines:
+  checkstyle:
+    enabled: false
+  pmd:
+    enabled: true
   fixme:
     enabled: true
   duplication:

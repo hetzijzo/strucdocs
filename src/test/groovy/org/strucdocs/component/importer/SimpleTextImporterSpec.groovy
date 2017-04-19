@@ -14,8 +14,7 @@ import javax.transaction.Transactional
 class SimpleTextImporterSpec extends Specification {
 
     @Autowired
-    SimpleTextImporter simpleTextImporter;
-
+    SimpleTextImporter simpleTextImporter
 
     def "should import song"() {
         given: "A song as text"

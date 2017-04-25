@@ -2,7 +2,7 @@ buildscript {
     ext {
         javaVersion = 1.8
 
-        springBootVersion = '1.5.2.RELEASE'
+        springBootVersion = '1.5.3.RELEASE'
         //springCloudVersion = 'Brixton.SR3'
         springSecurityOauth2Version = '2.1.0.RELEASE'
 

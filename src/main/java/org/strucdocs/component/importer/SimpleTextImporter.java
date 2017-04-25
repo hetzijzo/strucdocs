@@ -82,13 +82,10 @@ public class SimpleTextImporter implements Importer {
 
         if (importSongBuilder.getCurrentSongLine() == null) {
             SongLine.SongLineBuilder songLineBuilder = SongLine.builder();
-            String[] split = StringUtils.split(line, ' ');
-            Arrays.asList(split).forEach(chordString -> {
-                Chord chord = Chord.fromString(chordString);
-                if (chord != null) {
-                    songLineBuilder.chord(chord);
-                }
-            });
+            Arrays.stream(StringUtils.split(line, ' '))
+                .filter(Chord::isChord)
+                .map(Chord::fromString)
+                .forEach(songLineBuilder::chord);
 
             SongLine songLine = songLineBuilder.build();
             importSongBuilder.getCurrentPart().addLine(songLine);

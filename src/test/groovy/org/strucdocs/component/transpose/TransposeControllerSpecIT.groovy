@@ -16,7 +16,6 @@ import static org.springframework.http.HttpStatus.OK
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@ActiveProfiles("test")
 class TransposeControllerSpecIT extends RestOAuthAbstractSpecification {
 
     def "should transpose with simple chord"() {
